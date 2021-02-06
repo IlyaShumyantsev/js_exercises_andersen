@@ -27,16 +27,10 @@ function plus(firstArg) {
   return add;
 }
 
-// function compose(firstFoo, secondFoo) {
-//   return function (value) {
-//     return firstFoo(secondFoo(value));
-//   };
-// }
-
 function compose() {
-  return [...arguments].reduce((f, g) => {
+  return [...arguments].reduce((previousFoo, currentFoo) => {
     return function () {
-      return f(g.apply(this, arguments));
+      return previousFoo(currentFoo.apply(this, arguments));
     };
   });
 }

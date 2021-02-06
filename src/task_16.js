@@ -35,10 +35,17 @@ function plus(firstArg) {
 //   });
 // }
 
+// const compose = (...fns) => (initValue) => {
+//   const result = fns.reduceRight((acc, fn) => {
+//     return fn(acc);
+//   }, initValue);
+//   return result;
+// };
+
 function compose(...args) {
-  return args.reduceRight((previous, current) => {
+  return args.reduceRight((accStack, current) => {
     return function (value) {
-      return current(previous(value));
+      return current(accStack(value));
     };
   });
 }

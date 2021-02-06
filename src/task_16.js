@@ -27,15 +27,21 @@ function plus(firstArg) {
   return add;
 }
 
-function compose() {
-  return [...arguments].reduce((previousFoo, currentFoo) => {
-    return function () {
-      return previousFoo(currentFoo.apply(this, arguments));
+// function compose() {
+//   return [...arguments].reduce((previousFoo, currentFoo) => {
+//     return function () {
+//       return previousFoo(currentFoo.apply(this, arguments));
+//     };
+//   });
+// }
+
+function compose(...args) {
+  return args.reduceRight((previous, current) => {
+    return function (value) {
+      return current(previous(value));
     };
   });
 }
-
-console.log(compose(plus(1), plus(5), multiply(78), multiply(2))(11));
 
 module.exports.compose = compose;
 module.exports.multiply = multiply;
